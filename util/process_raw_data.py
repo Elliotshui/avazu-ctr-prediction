@@ -39,7 +39,9 @@ def scan(path):
 
 def process(src_path, dst_path, is_train):
 
-	processed_data = []
+	processed_data = {}
+	processed_data['features'] = []
+	processed_data['label'] = []
 	feature_dict = {}	
 	fields = ['pub_id', 'pub_domain', 'pub_category', 'banner_pos', 'device_model', 'device_conn_type', 'C14', 'C17', 'C20', 'C21']
 
@@ -54,7 +56,7 @@ def process(src_path, dst_path, is_train):
 
 		features = []	
 		feature_ids = []
-		click = 0
+		click = int(row['click']) 
 
 		device_id_count = id_cnt[row['device_id']]	
 		device_ip_count = ip_cnt[row['device_ip']]
@@ -97,7 +99,8 @@ def process(src_path, dst_path, is_train):
 				feature_index += 1
 			feature_indices.append(feature_dict[feature])
 		
-		processed_data.append({'feature_indices': feature_indices, 'click': click})
+		processed_data['features'].append(feature_indices)
+		processed_data['label'].append(click)
 	
 	print('======== process complete ========')
 	print('Total feature count: ', feature_index) 
@@ -107,5 +110,5 @@ def process(src_path, dst_path, is_train):
 	pickle.dump(feature_dict, f_dict)
 
 
-scan('../raw_data/train')
-process('../raw_data/train', '../data/train', True)
+scan('raw_data/train')
+process('raw_data/train', 'data/train', True)
