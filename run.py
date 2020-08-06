@@ -52,6 +52,7 @@ for i in tqdm(range(1, num_epoch * num_batch + 1)):
 	next_batch = sess.run(next_train_batch_op)
 	features = next_batch['features']
 	label = next_batch['label']
+	label = np.reshape(label, [-1, 1])
 	loss += model.train_batch(features, label)
 	if i % num_batch == 0:
 		print("epoch ", i / num_batch, " average loss: ", loss / num_batch)
@@ -63,5 +64,6 @@ for i in tqdm(range(1, eval_iter + 1)):
 	next_batch = sess.run(next_eval_batch_op)
 	features = next_batch['features']
 	label = next_batch['label'] 
+	label = np.reshape(label, [-1, 1])
 	loss += model.eval(features, label)
 print("loss: ", loss / eval_iter)
