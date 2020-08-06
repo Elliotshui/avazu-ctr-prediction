@@ -1,7 +1,10 @@
 import tensorflow as tf
 import numpy as np
+import os
 from model.DeepModel import DeepModel
 from util.dataloader import construct_tf_dataset
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 # graph
 graph = tf.Graph()
@@ -31,6 +34,6 @@ for i in range(1, 10000):
 	label = next_batch['label'] 
 	label = np.reshape(label, [-1, 1])
 	loss += model.train_batch(features, label)
-	if i % 100 == 0:
+	if i % 1000 == 0:
 		print("batch ", i, " average loss: ", loss / 100)
 		loss = 0.0

@@ -3,7 +3,7 @@ import tensorflow as tf
 
 import pickle
 
-BATCH_SIZE = 64
+BATCH_SIZE = 256 
 SHUFFLE_BUFFER_SIZE = 512
 
 def construct_tf_dataset(data_path, feature_dict_path):
