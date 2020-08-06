@@ -24,12 +24,13 @@ args = {
 model = DeepModel(args, graph, sess)
 model.init_weights()
 
-next_batch = sess.run(next_batch_op)
-print(next_batch)
-
-features = next_batch['features']
-label = next_batch['label'] 
-label = np.reshape(label, [-1, 1])
-
-log_loss = model.eval(features, label)
-print('log_loss: ', log_loss)
+loss = 0.0
+for i in range(1, 10000):
+	next_batch = sess.run(next_batch_op)
+	features = next_batch['features']
+	label = next_batch['label'] 
+	label = np.reshape(label, [-1, 1])
+	loss += model.train_batch(features, label)
+	if i % 100 == 0:
+		print("batch ", i, " average loss: ", loss / 100)
+		loss = 0.0

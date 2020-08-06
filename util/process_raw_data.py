@@ -56,7 +56,7 @@ def process(src_path, dst_path, is_train):
 
 		features = []	
 		feature_ids = []
-		click = int(row['click']) 
+		click = float(row['click']) 
 
 		device_id_count = id_cnt[row['device_id']]	
 		device_ip_count = ip_cnt[row['device_ip']]

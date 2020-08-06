@@ -4,6 +4,7 @@ import tensorflow as tf
 import pickle
 
 BATCH_SIZE = 64
+SHUFFLE_BUFFER_SIZE = 512
 
 def construct_tf_dataset(data_path, feature_dict_path):
 	print("loading data...")
@@ -18,7 +19,7 @@ def construct_tf_dataset(data_path, feature_dict_path):
 
 	print("constructing tf dataset...")
 	dataset = tf.data.Dataset.from_tensor_slices(train_data)
-	dataset = dataset.batch(BATCH_SIZE)
+	dataset = dataset.batch(BATCH_SIZE).shuffle(SHUFFLE_BUFFER_SIZE)
 	print("======== tf dataset constructed ========")
 
 
