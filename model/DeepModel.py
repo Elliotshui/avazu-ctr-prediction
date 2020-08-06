@@ -70,7 +70,7 @@ class DeepModel:
 	
 	def eval(self, input, label):
 		log_loss = self.session.run(
-			[self.log_loss],
+			self.log_loss,
 			feed_dict={self.input: input, self.label: label}
 		)
 		return log_loss
